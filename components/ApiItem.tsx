@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Input,
   InputGroup,
   Select,
 } from '@components/Bootstrap'
