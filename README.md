@@ -1,4 +1,4 @@
-# Json To TypeScript
+# Json Type Note
 
 ## TODO
 
