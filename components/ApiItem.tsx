@@ -23,7 +23,7 @@ const ApiItemComponent: React.FC<ApiItemComponentProps> = ({
 }) => {
   return (
     <div className="p-4">
-      <div className="p-3 border">
+      <div className="p-3 border rounded">
         <InputGroup className="mb-4">
           <Select className="flex-grow-0 w-auto" disabled defaultValue={method}>
             <Option value="GET">GET</Option>
