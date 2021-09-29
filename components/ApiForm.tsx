@@ -23,13 +23,11 @@ type ApiFormComponentProps = {
 
 const ApiFormComponent: React.FC<ApiFormComponentProps> = ({ onApiAdd }) => {
   const [method, setMethod] = useState<Method>('GET')
-  const [url, setUrl] = useState('')
   const [typeName, setTypeName] = useState('')
   const { json, setJson, tsInterface, resetJson } = useJsonToTs(typeName)
 
   const reset = () => {
     setMethod('GET')
-    setUrl('')
     setTypeName('')
     resetJson()
   }
@@ -40,7 +38,7 @@ const ApiFormComponent: React.FC<ApiFormComponentProps> = ({ onApiAdd }) => {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    onApiAdd({ method, url, typeName, json, tsInterface })
+    onApiAdd({ method, typeName, json, tsInterface })
     reset()
   }
 
@@ -57,12 +55,12 @@ const ApiFormComponent: React.FC<ApiFormComponentProps> = ({ onApiAdd }) => {
           </Select>
           <Input
             required
-            type="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="https://example.com"
+            type="text"
+            value={typeName}
+            onChange={(e) => setTypeName(e.target.value)}
+            placeholder="Please enter type name..."
           />
-          <Button type="submit">Save</Button>
+          <Button type="submit">Add</Button>
         </InputGroup>
         <JsonContainer>
           <JsonContent
@@ -73,8 +71,6 @@ const ApiFormComponent: React.FC<ApiFormComponentProps> = ({ onApiAdd }) => {
               }
             }}
             tsInterface={tsInterface}
-            typeName={typeName}
-            onTypeNameChange={(e) => setTypeName(e.target.value)}
           />
         </JsonContainer>
       </form>
