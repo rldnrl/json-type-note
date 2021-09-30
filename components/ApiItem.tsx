@@ -6,11 +6,12 @@ import {
 import { Method } from 'types/method'
 import Editor from '@monaco-editor/react'
 import Option from './Option'
+import Code from './Code'
 
 type ApiItemComponentProps = {
   method?: Method
-  json?: string;
-  tsInterface?: string
+  json: string;
+  tsInterface: string
   typeName?: string
 }
 
@@ -33,35 +34,9 @@ const ApiItemComponent: React.FC<ApiItemComponentProps> = ({
           </Select>
         </InputGroup>
         <h1 className="mb-3 fs-2">{typeName}</h1>
-        <Editor
-          height="250px"
-          defaultValue={json}
-          defaultLanguage="json"
-          theme="vs-dark"
-          options={{
-            tabSize: 2,
-            fontSize: 16,
-            readOnly: true,
-            padding: {
-              top: 16
-            }
-          }}
-        />
+        <Code language="json" code={json} />
         <div className="my-4" />
-        <Editor
-          height="250px"
-          value={tsInterface}
-          defaultLanguage="typescript"
-          theme="vs-dark"
-          options={{
-            tabSize: 2,
-            fontSize: 16,
-            readOnly: true,
-            padding: {
-              top: 16
-            }
-          }}
-        />
+        <Code language="typescript" code={tsInterface} />
       </div>
     </div>
   )
