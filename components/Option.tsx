@@ -3,7 +3,7 @@ import { Method } from 'types/method';
 
 type OptionProps = OptionHTMLAttributes<HTMLOptionElement> & {
   children?: React.ReactNode
-  value?: Method
+  value?: Method | 'Request' | 'Response'
 }
 
 const Option = ({ children, ...rest }: OptionProps) => {

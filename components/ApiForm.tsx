@@ -23,11 +23,13 @@ type ApiFormComponentProps = {
 
 const ApiFormComponent: React.FC<ApiFormComponentProps> = ({ onApiAdd }) => {
   const [method, setMethod] = useState<Method>('GET')
+  const [requestOrResponse, setRequestOrResponse] = useState<'Request' | 'Response'>('Response')
   const [typeName, setTypeName] = useState('')
   const { json, setJson, tsInterface, resetJson } = useJsonToTs(typeName)
 
   const reset = () => {
     setMethod('GET')
+    setRequestOrResponse('Response')
     setTypeName('')
     resetJson()
   }
@@ -36,9 +38,19 @@ const ApiFormComponent: React.FC<ApiFormComponentProps> = ({ onApiAdd }) => {
     setMethod(e.target.value as Method)
   }
 
+  const onRequestOrResponseChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setRequestOrResponse(e.target.value as 'Request' | 'Response')
+  }
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    onApiAdd({ method, typeName, json, tsInterface })
+    onApiAdd({
+      method,
+      requestOrResponse,
+      typeName,
+      json,
+      tsInterface
+    })
     reset()
   }
 
@@ -46,8 +58,8 @@ const ApiFormComponent: React.FC<ApiFormComponentProps> = ({ onApiAdd }) => {
     <div className="p-4">
       <form onSubmit={onSubmit}>
         <InputGroup className="mb-4">
-          <Select className="flex-grow-0 w-auto" onChange={onMethodChange}>
-            <Option value="GET" defaultValue={method}>GET</Option>
+          <Select className="flex-grow-0 w-auto" defaultValue={method} onChange={onMethodChange}>
+            <Option value="GET">GET</Option>
             <Option value="POST">POST</Option>
             <Option value="PUT">PUT</Option>
             <Option value="PATCH">PATCH</Option>
@@ -63,6 +75,12 @@ const ApiFormComponent: React.FC<ApiFormComponentProps> = ({ onApiAdd }) => {
           <Button type="submit">Add</Button>
         </InputGroup>
         <JsonContainer>
+          <div className="pb-3">
+            <Select className="flex-grow-0 w-auto" defaultValue={requestOrResponse} onChange={onRequestOrResponseChange}>
+              <Option value="Response">Response JSON</Option>
+              <Option value="Request">Payload JSON</Option>
+            </Select>
+          </div>
           <JsonContent
             json={json}
             onJsonChange={(value) => {

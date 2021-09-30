@@ -35,7 +35,7 @@ const divContainerStyle = css`
 const copyButtonContainerStyle = css`
   cursor: pointer;
   position: absolute;
-  right: 18px;
+  right: 24px;
   top: 14px;
   color: white;
   font-size: 24px;

@@ -10,9 +10,17 @@ const ApiListComponent: React.FC<ApiListComponentProps> = ({ apiList }) => {
 
   return (
     <>
-      {apiList.map(({ id, method, json, tsInterface, typeName }) =>
+      {apiList.map(({
+        id,
+        method,
+        requestOrResponse,
+        json,
+        tsInterface,
+        typeName
+      }) =>
         <ApiItemComponent
           key={id}
+          requestOrResponse={requestOrResponse}
           method={method}
           json={json}
           tsInterface={tsInterface}
