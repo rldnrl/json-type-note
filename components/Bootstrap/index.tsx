@@ -8,4 +8,5 @@ export {
   NavLink,
   Tabs,
   Tab,
+  Accordion,
 } from 'react-bootstrap'

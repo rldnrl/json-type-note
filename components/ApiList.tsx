@@ -1,4 +1,5 @@
 import React from 'react'
+import { Accordion } from '@components/Bootstrap'
 import { ApiItem } from 'types/api-item'
 import ApiItemComponent from './ApiItem'
 
@@ -9,7 +10,7 @@ type ApiListComponentProps = {
 const ApiListComponent: React.FC<ApiListComponentProps> = ({ apiList }) => {
 
   return (
-    <>
+    <Accordion>
       {apiList.map(({
         id,
         method,
@@ -20,6 +21,7 @@ const ApiListComponent: React.FC<ApiListComponentProps> = ({ apiList }) => {
       }) =>
         <ApiItemComponent
           key={id}
+          eventKey={id}
           requestOrResponse={requestOrResponse}
           method={method}
           json={json}
@@ -27,7 +29,7 @@ const ApiListComponent: React.FC<ApiListComponentProps> = ({ apiList }) => {
           typeName={typeName}
         />
       )}
-    </>
+    </Accordion>
   )
 }
 
