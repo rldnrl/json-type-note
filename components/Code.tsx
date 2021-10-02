@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { css } from '@emotion/css'
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
-import { FaRegCopy, FaRegClipboard } from 'react-icons/fa'
+import { FaRegCopy, FaCheck } from 'react-icons/fa'
 import styled from '@emotion/styled';
+import useIsCopied from 'hooks/useIsCopied';
 
 type CodeProps = {
   language: 'json' | 'typescript'
@@ -12,13 +13,13 @@ type CodeProps = {
 }
 
 const Code: React.FC<CodeProps> = ({ language, code }) => {
-  const [isCopied, setIsCopied] = useState(false)
+  const { isCopied, setIsCopied } = useIsCopied()
 
   return (
     <div className={divContainerStyle}>
       <div className={copyButtonContainerStyle}>
         <CopyToClipboard text={code} onCopy={() => setIsCopied(true)}>
-          {isCopied ? <FaRegClipboard /> : <FaRegCopy />}
+          {isCopied ? <FaCheck className={faCheckStyle} /> : <FaRegCopy />}
         </CopyToClipboard>
       </div>
       <CustomSyntaxHighlighter language={language} style={atomDark}>
@@ -43,6 +44,10 @@ const copyButtonContainerStyle = css`
 
 const CustomSyntaxHighlighter = styled(SyntaxHighlighter)`
   height: 250px;
+`
+
+const faCheckStyle = css`
+  color: #7bf542
 `
 
 export default Code;
