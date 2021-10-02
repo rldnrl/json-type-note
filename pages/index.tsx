@@ -5,6 +5,7 @@ import { ApiItem } from 'types/api-item'
 import { v4 } from 'uuid'
 import { ApiForm } from 'types/api-form'
 import ApiListComponent from '@components/ApiList'
+import { css, cx } from '@emotion/css'
 
 const Home: NextPage = () => {
   const [apiList, setApiList] = useState<ApiItem[]>([])
@@ -21,11 +22,22 @@ const Home: NextPage = () => {
   }
 
   return (
-    <>
-      <ApiFormComponent onApiAdd={onApiAdd} />
-      <ApiListComponent apiList={apiList} />
-    </>
+    <div className={cx("mx-auto", containerStyle)}>
+      <main className={mainStyle}>
+        <ApiFormComponent onApiAdd={onApiAdd} />
+        <ApiListComponent apiList={apiList} />
+      </main>
+    </div>
   )
 }
+
+const containerStyle = css`
+  width: 1000px;
+`
+
+const mainStyle = css`
+  height: 80vh;
+  padding-bottom: 4rem;
+`
 
 export default Home
