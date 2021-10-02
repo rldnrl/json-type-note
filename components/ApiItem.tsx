@@ -26,7 +26,7 @@ const ApiItemComponent: React.FC<ApiItemComponentProps> = ({
   tsInterface,
   typeName
 }) => {
-  const optionMethodColor = () => {
+  const setOptionMethodColor = () => {
     switch (method) {
       case 'GET':
         return 'bg-primary text-white'
@@ -50,7 +50,7 @@ const ApiItemComponent: React.FC<ApiItemComponentProps> = ({
         <Accordion.Item eventKey={eventKey}>
           <Accordion.Header className="fs-2">
             <InputGroup className="flex-grow-0 w-auto">
-              <Select className={cx("flex-grow-0 w-auto", optionMethodColor())} disabled defaultValue={method}>
+              <Select className={cx("flex-grow-0 w-auto", setOptionMethodColor())} disabled defaultValue={method}>
                 <Option value="GET">GET</Option>
                 <Option value="POST">POST</Option>
                 <Option value="PUT">PUT</Option>
