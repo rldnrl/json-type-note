@@ -22,7 +22,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className={cx("mx-auto", containerStyle)}>
+    <div className={cx(containerStyle)}>
       <main className={mainStyle}>
         <ApiFormComponent onApiAdd={onApiAdd} />
         <ApiListComponent apiList={apiList} />
@@ -32,6 +32,7 @@ const Home: NextPage = () => {
 }
 
 const containerStyle = css`
+  margin: 0 auto;
   width: 1000px;
 `
 
