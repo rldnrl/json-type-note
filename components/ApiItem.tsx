@@ -8,11 +8,12 @@ import { Method } from 'types/method'
 import Option from './Option'
 import Code from './Code'
 import { css, cx } from '@emotion/css'
+import setOptionMethodColor from 'utils/setOptionColor'
 
 type ApiItemComponentProps = {
   eventKey: string
   requestOrResponse?: 'Request' | 'Response'
-  method?: Method
+  method: Method
   json: string;
   tsInterface: string
   typeName?: string
@@ -26,23 +27,6 @@ const ApiItemComponent: React.FC<ApiItemComponentProps> = ({
   tsInterface,
   typeName
 }) => {
-  const setOptionMethodColor = () => {
-    switch (method) {
-      case 'GET':
-        return 'bg-primary text-white'
-      case 'POST':
-        return 'bg-success text-white'
-      case 'PUT':
-        return 'bg-warning text-white'
-      case 'DELETE':
-        return 'bg-danger text-white'
-      case 'PATCH':
-        return 'bg-danger text-white'
-      default:
-        return
-    }
-  }
-
   return (
     <>
       <div className="p-4">
@@ -50,7 +34,11 @@ const ApiItemComponent: React.FC<ApiItemComponentProps> = ({
         <Accordion.Item eventKey={eventKey}>
           <Accordion.Header className="fs-2">
             <InputGroup className="flex-grow-0 w-auto">
-              <Select className={cx("flex-grow-0 w-auto", setOptionMethodColor())} disabled defaultValue={method}>
+              <Select
+                className={cx("flex-grow-0 w-auto", setOptionMethodColor(method))}
+                disabled
+                defaultValue={method}
+              >
                 <Option value="GET">GET</Option>
                 <Option value="POST">POST</Option>
                 <Option value="PUT">PUT</Option>
