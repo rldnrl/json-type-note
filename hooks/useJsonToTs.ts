@@ -6,9 +6,13 @@ const jsonToTypeScript = async (json: string, typeName: string) => {
   return tsPerson.join("\n");
 };
 
-const useJsonToTs = (typeName: string) => {
-  const [json, setJson] = useState(JSON.stringify({}, null, 2));
-  const [tsInterface, setTsInterface] = useState("");
+const useJsonToTs = (
+  typeName: string,
+  defaultJson = {},
+  defaultTsInterface = ""
+) => {
+  const [json, setJson] = useState(JSON.stringify(defaultJson, null, 2));
+  const [tsInterface, setTsInterface] = useState(defaultTsInterface);
 
   useEffect(() => {
     jsonToTypeScript(json, typeName)
@@ -17,14 +21,14 @@ const useJsonToTs = (typeName: string) => {
   }, [json, typeName]);
 
   const resetJson = () => {
-    setJson(JSON.stringify({}, null, 2))
-  }
+    setJson(JSON.stringify({}, null, 2));
+  };
 
   return {
     json,
     setJson,
     tsInterface,
-    resetJson
+    resetJson,
   };
 };
 
