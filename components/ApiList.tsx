@@ -6,9 +6,10 @@ import ApiItemComponent from './ApiItem'
 type ApiListComponentProps = {
   apiList: ApiItem[]
   onRemove: (id: string) => void
+  onUpdate: (updatedApiForm: ApiItem) => void
 }
 
-const ApiListComponent: React.FC<ApiListComponentProps> = ({ apiList, onRemove }) => {
+const ApiListComponent: React.FC<ApiListComponentProps> = ({ apiList, onRemove, onUpdate }) => {
   return (
     <Accordion>
       {apiList.map(({
@@ -27,6 +28,7 @@ const ApiListComponent: React.FC<ApiListComponentProps> = ({ apiList, onRemove }
           json={json}
           tsInterface={tsInterface}
           typeName={typeName}
+          onUpdate={onUpdate}
           onRemove={onRemove}
         />
       )}

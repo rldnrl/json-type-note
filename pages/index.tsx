@@ -35,6 +35,31 @@ const Home: NextPage = () => {
     }
   }
 
+  const onUpdate = (updateApiForm: ApiItem) => {
+    const savedApiListFromLocalStorage = getLocalStorageFrom('api_list')
+    if (!isNull(savedApiListFromLocalStorage)) {
+      const savedApiList: ApiItem[] = JSON.parse(savedApiListFromLocalStorage)
+      const [updatedApiItem] = savedApiList.filter((savedApi) => savedApi.id === updateApiForm.id)
+      const restApiItem = savedApiList.filter((savedApi) => savedApi.id !== updateApiForm.id)
+
+      updatedApiItem.json = updateApiForm.json
+      updatedApiItem.method = updateApiForm.method
+      updatedApiItem.requestOrResponse = updateApiForm.requestOrResponse
+      updatedApiItem.tsInterface = updateApiForm.tsInterface
+      updatedApiItem.typeName = updateApiForm.typeName
+
+      const updateApiList: ApiItem[] = [
+        ...restApiItem,
+        {
+          ...updatedApiItem
+        }
+      ]
+
+      setLocalStorageFrom('api_list', JSON.stringify(updateApiList))
+      setApiList(updateApiList)
+    }
+  }
+
   return (
     <div className={cx(containerStyle)}>
       <main className={mainStyle}>
@@ -42,6 +67,7 @@ const Home: NextPage = () => {
         <ApiListComponent
           apiList={apiList}
           onRemove={onRemove}
+          onUpdate={onUpdate}
         />
       </main>
     </div>
