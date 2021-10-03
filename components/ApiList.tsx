@@ -5,10 +5,10 @@ import ApiItemComponent from './ApiItem'
 
 type ApiListComponentProps = {
   apiList: ApiItem[]
+  onRemove: (id: string) => void
 }
 
-const ApiListComponent: React.FC<ApiListComponentProps> = ({ apiList }) => {
-
+const ApiListComponent: React.FC<ApiListComponentProps> = ({ apiList, onRemove }) => {
   return (
     <Accordion>
       {apiList.map(({
@@ -27,6 +27,7 @@ const ApiListComponent: React.FC<ApiListComponentProps> = ({ apiList }) => {
           json={json}
           tsInterface={tsInterface}
           typeName={typeName}
+          onRemove={onRemove}
         />
       )}
     </Accordion>

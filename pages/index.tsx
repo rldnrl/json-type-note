@@ -6,8 +6,9 @@ import { ApiItem } from 'types/api-item'
 import { ApiForm } from 'types/api-form'
 import ApiFormComponent from '@components/ApiForm'
 import ApiListComponent from '@components/ApiList'
-import { setLocalStorageFrom } from 'utils/local-storage'
+import { getLocalStorageFrom, setLocalStorageFrom } from 'utils/local-storage'
 import useApiList from 'hooks/useApiList'
+import { isNull } from 'utils/type-guard'
 
 const Home: NextPage = () => {
   const [apiList, setApiList] = useApiList()
@@ -24,11 +25,24 @@ const Home: NextPage = () => {
     setApiList(newApiList)
   }
 
+  const onRemove = (id: string) => {
+    const savedApiListFromLocalStorage = getLocalStorageFrom('api_list')
+    if (!isNull(savedApiListFromLocalStorage)) {
+      const savedApiList: ApiItem[] = JSON.parse(savedApiListFromLocalStorage)
+      const removedApiList = savedApiList.filter((savedApi) => savedApi.id !== id)
+      setLocalStorageFrom('api_list', JSON.stringify(removedApiList))
+      setApiList(removedApiList)
+    }
+  }
+
   return (
     <div className={cx(containerStyle)}>
       <main className={mainStyle}>
         <ApiFormComponent onApiAdd={onApiAdd} />
-        <ApiListComponent apiList={apiList} />
+        <ApiListComponent
+          apiList={apiList}
+          onRemove={onRemove}
+        />
       </main>
     </div>
   )
