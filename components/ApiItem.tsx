@@ -67,24 +67,4 @@ const titleStyle = css`
   font-weight: 700;
 `
 
-const getStyle = css`
-  background-color: #61affe;
-  color: #ffffff
-`
-
-const postStyle = css`
-  background-color: #49cc90;
-  color: #ffffff
-`
-
-const putStyle = css`
-  background-color: #fca130;
-  color: #ffffff
-`
-
-const deleteStyle = css`
-  background-color: #f93e3e;
-  color: #ffffff
-`
-
 export default ApiItemComponent
