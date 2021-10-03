@@ -77,8 +77,8 @@ const ApiFormComponent: React.FC<ApiFormComponentProps> = ({ onApiAdd }) => {
         <JsonContainer>
           <div className="pb-3">
             <Select className="flex-grow-0 w-auto" defaultValue={requestOrResponse} onChange={onRequestOrResponseChange}>
-              <Option value="Response">Response JSON</Option>
-              <Option value="Request">Payload JSON</Option>
+              <Option value="Response">Response</Option>
+              <Option value="Request">Payload</Option>
             </Select>
           </div>
           <JsonContent
