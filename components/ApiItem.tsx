@@ -13,9 +13,8 @@ import Option from './Option'
 import Code from './Code'
 import { css, cx } from '@emotion/css'
 import setOptionMethodColor from 'utils/setOptionColor'
-import { JsonContent } from './Json'
 import { ApiItem } from 'types/api-item'
-import { OnChange } from '@monaco-editor/react'
+import ApiUpdateFormComponent from './ApiUpdateForm'
 
 type ApiItemComponentProps = {
   eventKey: string
@@ -25,6 +24,7 @@ type ApiItemComponentProps = {
   tsInterface: string
   typeName: string
   onRemove: (id: string) => void,
+  onUpdate: (updatedApiForm: ApiItem) => void
 }
 
 const ApiItemComponent: React.FC<ApiItemComponentProps> = ({
@@ -35,7 +35,45 @@ const ApiItemComponent: React.FC<ApiItemComponentProps> = ({
   tsInterface,
   typeName,
   onRemove,
+  onUpdate,
 }) => {
+  const [isUpdated, setIsUpdated] = useState(false)
+
+  const handleUpdateClick = () => {
+    setIsUpdated(true)
+    onUpdate({
+      id: eventKey,
+      requestOrResponse,
+      method,
+      json,
+      tsInterface,
+      typeName,
+    })
+  }
+
+  const renderCodeView = (
+    <>
+      <Code language="json" code={json} />
+      <div className="my-4" />
+      <Code language="typescript" code={tsInterface} />
+      <Button variant="update" onClick={handleUpdateClick}>수정</Button>
+      <Button variant="delete" onClick={() => onRemove(eventKey)}>삭제</Button>
+    </>
+  )
+
+  const renderCodeEditor = (
+    <ApiUpdateFormComponent
+      id={eventKey}
+      previousJson={json}
+      previousMethod={method}
+      previousRequestOrResponse={requestOrResponse}
+      previousTsInterface={tsInterface}
+      previousTypeName={typeName}
+      onApiUpdate={onUpdate}
+      onUpdateClick={setIsUpdated}
+    />
+  )
+
   return (
     <div className="p-4">
       <h1 className={titleStyle}>{typeName}</h1>
@@ -54,16 +92,13 @@ const ApiItemComponent: React.FC<ApiItemComponentProps> = ({
               <Option value="DELETE">DELETE</Option>
             </Select>
             <Select className="flex-grow-0 w-auto" disabled defaultValue={requestOrResponse}>
-              <Option value="Response">Response JSON</Option>
-              <Option value="Request">Payload JSON</Option>
+              <Option value="Response">Response</Option>
+              <Option value="Request">Payload</Option>
             </Select>
           </InputGroup>
         </Accordion.Header>
         <Accordion.Body className="p-3 border rounded">
-          <Code language="json" code={json} />
-          <div className="my-4" />
-          <Code language="typescript" code={tsInterface} />
-          <Button variant="delete" onClick={() => onRemove(eventKey)}>삭제</Button>
+          {isUpdated ? renderCodeEditor : renderCodeView}
         </Accordion.Body>
       </Accordion.Item>
     </div>
