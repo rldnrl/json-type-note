@@ -7,7 +7,7 @@
 - [x] 응답 JSON과 페이로드 JSON을 선택할 수 있도록 함.
 - [x] 숨김/보여주기 버튼(Accordion 적용)
 - [x] localStorage로 JSON Type 저장하기
-- [ ] Method 별로 색깔 추가
-- [ ] 삭제 버튼
+- [x] Method 별로 색깔 추가
+- [x] 삭제 버튼
 - [ ] 수정 버튼
 - [ ] 프로젝트 생성
