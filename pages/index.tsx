@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
-import ApiFormComponent from '@components/ApiForm'
 import type { NextPage } from 'next'
-import { ApiItem } from 'types/api-item'
 import { v4 } from 'uuid'
-import { ApiForm } from 'types/api-form'
-import ApiListComponent from '@components/ApiList'
 import { css, cx } from '@emotion/css'
+import { ApiItem } from 'types/api-item'
+import { ApiForm } from 'types/api-form'
+import ApiFormComponent from '@components/ApiForm'
+import ApiListComponent from '@components/ApiList'
+import { setLocalStorageFrom } from 'utils/local-storage'
+import useApiList from 'hooks/useApiList'
 
 const Home: NextPage = () => {
-  const [apiList, setApiList] = useState<ApiItem[]>([])
+  const [apiList, setApiList] = useApiList()
 
   const onApiAdd = (apiForm: ApiForm) => {
     const newApiList: ApiItem[] = [
@@ -18,6 +20,7 @@ const Home: NextPage = () => {
         ...apiForm
       }
     ]
+    setLocalStorageFrom('api_list', JSON.stringify(newApiList))
     setApiList(newApiList)
   }
 
