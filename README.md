@@ -1,5 +1,8 @@
 # Json Type Note
 
+## 프로젝트 동기
+프론트엔드에서 JSON 형식으로 협업하는 게 어렵다. 그래서 "JSON을 타입 형식으로 바꿔주고는 노트를 만들면 어떨까?"라는 생각으로 시작했다. JSON을 Type으로 변환해주는 알고리즘은 [quick-type](https://github.com/quicktype/quicktype)을 이용했다.
+
 ## TODO
 
 - [ ] EndPoint 추가
